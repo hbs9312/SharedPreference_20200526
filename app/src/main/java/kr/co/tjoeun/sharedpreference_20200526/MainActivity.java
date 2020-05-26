@@ -28,6 +28,8 @@ public class MainActivity extends BaseActivity {
     @Override
     public void setupEvent() {
 
+
+
         binding.signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
