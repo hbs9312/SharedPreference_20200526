@@ -25,6 +25,56 @@ public class SignUpActivity extends BaseActivity {
 
     @Override
     public void setupEvent() {
+
+
+//        비밀번호 확인에 뭐라고 적히는지를 타이핑할 때마다 확인.
+//        조건에 따라 문구 변경
+//         => 한글자도 없다 : 비밀번호를 입력해주세요. 글자색 #A0A0A0
+//         => 8글자 미만 : 비밀번호가 너무 짧습니다. 글자색 빨간색
+//         => 8글자 이상인데, 그냥 비밀번호와 다르다 => 비밀번호가 서로 다릅니다. 빨간색
+//         => 8글자 이상 + 그냥 비밀번호와 같다 => 사용해도 좋은 비밀번호입니다. #2767E3
+
+        binding.passwordCheckEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                String inputPw = s.toString();
+                String passwordEdt = binding.passwordEdt.getText().toString();
+
+
+                if (inputPw.equals("")) {
+                    binding.passwordResultTxt.setText("비밀번호를 입력해주세요.");
+                    binding.passwordResultTxt.setTextColor(Color.parseColor("#A0A0A0"));
+                }
+                else if(inputPw.length() < 8) {
+                    binding.passwordResultTxt.setText("비밀번호가 너무 짧습니다.");
+                    binding.passwordResultTxt.setTextColor(Color.RED);
+                }
+                else {
+                    String originalPw = binding.passwordEdt.getText().toString();
+                    if (!originalPw.equals(inputPw)) {
+                        binding.passwordResultTxt.setText("비밀번호가 서로 다릅니다.");
+                        binding.passwordResultTxt.setTextColor(Color.RED);
+                    }
+                    else {
+                        binding.passwordResultTxt.setText("사용해도 좋은 비밀번호입니다.");
+                        binding.passwordResultTxt.setTextColor(Color.parseColor("#2767E3"));
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
         binding.emailEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
